@@ -5,6 +5,12 @@ var userClickedPattern = [];
 var started = false;
 var level = 0;
 
+function startOver() {
+    level = 0;
+    gamePattern = [];
+    started = false;
+}
+
 function checkAnswer(currentLevel) {
     if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
         console.log("success");
@@ -15,11 +21,13 @@ function checkAnswer(currentLevel) {
         }
     } else {
         playSound("wrong");
+        $("body").addClass("game-over");
         setTimeout(function() {
-            $("body").addClass("game-over");
             $("body").removeClass("game-over");
         }, 200);
         console.log("wrong");
+        $("#level-title").text("Game Over, man. Press any key to restart.");
+        $(document).keypress(startOver());
     }
 }
 
